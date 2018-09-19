@@ -7,7 +7,7 @@ class App extends Component {
 
 	return (
 
-		<div> 
+		<div className="App"> 
 
 			<div className="App-title">Music Master</div> 
 
