@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import  './App.css';
 import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
-
+import Profile from './Profile'
 
 class App extends Component {
 
@@ -66,13 +66,9 @@ constructor(props){
 					</InputGroup>
 
 				</FormGroup>
+				<Profile artist={this.state.artist}/>
 
-				<div className="Profile">
-
-					<div> Artist Picture </div>
-					<div> Artist Name </div>
-				</div>
-
+				
 				<div className="Gallery">
 					Galllery
 				</div>
