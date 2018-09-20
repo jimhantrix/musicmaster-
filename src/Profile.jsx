@@ -4,15 +4,20 @@ import './App.css';
 class Profile extends Component {
 	
 	render(){
-		let artist = {name: '', followers: { total: ''}};
-		if (this.props.artist !== null){
-
-			artist = this.props.artist;
-		}
+		let artist = {name: '', followers: { total: ''},images: [{url: ''}]};
+		artist = this.props.artist !== null ? this.props.artist: artist;
+		
 
 		return (
 
-			<div>
+			<div className="profile">
+				<img
+
+				alt="Profile"
+				className="profile-img"
+				src={artist.image[0].url}
+
+				/>
 				<div>{artist.name}</div>
 				<div>{artist.followers.total}</div>
 			</div>
