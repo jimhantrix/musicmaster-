@@ -11,8 +11,8 @@ constructor(props){
 
 		this.state = {
 
-		query: ''
-	
+		query: '',
+		artist: null
 	}
 }
 
@@ -25,6 +25,16 @@ constructor(props){
 		const FETCH_URL = `${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
 
 		console.log('FETCH_URL',FETCH_URL);
+		fetch(FETCH_URL, {
+		method: 'GET'
+		})
+		.then(response => response.json())
+		.then(json => {
+		const artist = json.artists.item[0];
+		console.log('artist', artist);
+		this.setState({artist});
+
+		});
 	}
 	
 	render() {
