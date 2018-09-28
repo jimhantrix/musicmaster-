@@ -12,7 +12,8 @@
 
 				this.state = {
 				query: '',
-				artist: null
+				artist: null,
+				tracks: ''
 			}
 		}
 
@@ -40,7 +41,7 @@
 				
 				this.setState({artist});
 
-				FETCH_URL = `${ALBUM_URL}/{artist.id}/top-tracks?country=US&`
+				FETCH_URL = `${ALBUM_URL}&{artist.id}/top-tracks?country=US&`
 
 				fetch(FETCH_URL,{
 
@@ -51,6 +52,8 @@
 				.then(json => {
 
 					console.log('artis\'s top tracks:', json);
+					const {tracks} = json;
+					this.SetState({tracks});
 				})
 		   });
 		}
