@@ -24,10 +24,12 @@ class App extends Component {
 
 		const BASE_URL = 'https://api.spotify.com/v1/search?';
 
-	   const FETCH_URL =`${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
+	    let FETCH_URL =`${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
 
-		console.log('FETCH_URL', FETCH_URL);
-		fetch(FETCH_URL, {
+	    const ALBUM_URL = 'GET https://api.spotify.com/v1/artists/';
+
+		fetch(FETCH_URL, 
+		{
 		method: 'GET'
 		})
 
@@ -36,6 +38,19 @@ class App extends Component {
 			const artist = json.artists.items[0];
 			console.log('artist', artist);
 			this.setState({artist});
+
+			FETCH_URL = `${ALBUM_URL}/{artist.id}/top-tracks?country=US&`
+
+			fetch(FETCH_URL,{
+
+			   method: 'GET'
+			})
+
+			.then(response => response.json())
+			.then(json => {
+
+				console.log('artis\'s top tracks:', json);
+			})
 		});
 	}
 	
@@ -57,8 +72,8 @@ class App extends Component {
 							onChange={event => {this.setState({query: event.target.value})}}
 							onKeyPress={event =>{
 
-							 if (event.key === 'Enter'){
-							this.search()
+							 	if (event.key === 'Enter'){
+								this.search()
 
 							  }
 							}}
@@ -69,14 +84,26 @@ class App extends Component {
 					</InputGroup>
 
 				</FormGroup>
-					<Profile 
-						artist={this.state.artist}
-				/>
 
-				
-				<div className="Gallery">
-					Galllery
-				</div>
+
+				{
+					this.state.artist !== null ?
+
+					<div>
+
+						<Profile 
+						artist={this.state.artist}
+						/>
+						<div className="Gallery">
+							Galllery
+						</div>
+					</div>
+
+				: <div></div>
+
+
+				}
+
 			</div>
 		)
 	}
