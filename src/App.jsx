@@ -1,112 +1,113 @@
-import React, { Component } from 'react';
-import './App.css';
-import { FormGroup, FormControl, InputGroup, Glyphicon } from'react-bootstrap';
+	import React, { Component } from 'react';
+	import './App.css';
+	import { FormGroup, FormControl, InputGroup, Glyphicon } from'react-bootstrap';
 
-import Profile from './Profile';
+	import Profile from './Profile';
 
-class App extends Component {
+	class App extends Component {
 
-	constructor(props){
-		
-		super(props);
+		constructor(props){
+			
+			super(props);
 
-			this.state = {
-			query: '',
-			artist: null
+				this.state = {
+				query: '',
+				artist: null
+			}
 		}
-	}
 
 
 
-	search() {
+		search() {
 
-		console.log('this.state', this.state);
+			console.log('this.state', this.state);
 
-		const BASE_URL = 'https://api.spotify.com/v1/search?';
+			const BASE_URL = 'https://api.spotify.com/v1/search?';
 
-	    let FETCH_URL =`${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
+			let FETCH_URL =`${BASE_URL}q=${this.state.query}&type=artist&limit=1`;
 
-	    const ALBUM_URL = 'GET https://api.spotify.com/v1/artists/';
+			const ALBUM_URL = 'GET https://api.spotify.com/v1/artists/';
 
-		fetch(FETCH_URL, 
-		{
-		method: 'GET'
-		})
+			fetch(FETCH_URL, {
 
-		.then(response => response.json())
-		.then(json => {
-			const artist = json.artists.items[0];
-			console.log('artist', artist);
-			this.setState({artist});
-
-			FETCH_URL = `${ALBUM_URL}/{artist.id}/top-tracks?country=US&`
-
-			fetch(FETCH_URL,{
-
-			   method: 'GET'
+				method: 'GET'
 			})
 
 			.then(response => response.json())
 			.then(json => {
 
-				console.log('artis\'s top tracks:', json);
-			})
-		});
-	}
-	
-	render() {
+				const artist = json.artists.items[0];
+				
+				this.setState({artist});
 
-		return (
+				FETCH_URL = `${ALBUM_URL}/{artist.id}/top-tracks?country=US&`
 
-			<div className="App"> 
+				fetch(FETCH_URL,{
 
-				<div className="App-title">Music Master</div> 
+				   method: 'GET'
+				})
 
-				<FormGroup>
-					<InputGroup>
-						<FormControl
-							type="text"
-							placeholder=" Search for an Artist"
+				.then(response => response.json())
+				.then(json => {
 
-							value={this.state.query}
-							onChange={event => {this.setState({query: event.target.value})}}
-							onKeyPress={event =>{
+					console.log('artis\'s top tracks:', json);
+				})
+		   });
+		}
+		
+		render() {
 
-							 	if (event.key === 'Enter'){
-								this.search()
+			return (
 
-							  }
-							}}
-						/>
-						<InputGroup.Addon onClick={() => this.search()}>
-						<Glyphicon glyph="search"></Glyphicon>
-					</InputGroup.Addon>
-					</InputGroup>
+				<div className="App"> 
 
-				</FormGroup>
+					<div className="App-title">Music Master</div> 
+
+					<FormGroup>
+						<InputGroup>
+							<FormControl
+								type="text"
+								placeholder=" Search for an Artist"
+
+								value={this.state.query}
+								onChange={event => {this.setState({query: event.target.value})}}
+								onKeyPress={event =>{
+
+								 	if (event.key === 'Enter'){
+									this.search()
+
+								  }
+								}}
+							/>
+							<InputGroup.Addon onClick={() => this.search()}>
+							<Glyphicon glyph="search"></Glyphicon>
+						</InputGroup.Addon>
+						</InputGroup>
+
+					</FormGroup>
 
 
-				{
-					this.state.artist !== null ?
+					{
+						this.state.artist !== null ?
 
-					<div>
+						<div>
 
-						<Profile 
-						artist={this.state.artist}
-						/>
-						<div className="Gallery">
-							Galllery
+							<Profile 
+							artist={this.state.artist}
+							/>
+							<div className="Gallery">
+								Galllery
+							</div>
 						</div>
-					</div>
 
-				: <div></div>
+					: <div></div>
 
 
-				}
+					}
 
-			</div>
-		)
+				</div>
+			)
+		}
 	}
-}
 
-export default App;
+	export default App;
