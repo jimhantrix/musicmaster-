@@ -3,6 +3,8 @@
 	import { FormGroup, FormControl, InputGroup, Glyphicon } from'react-bootstrap';
 
 	import Profile from './Profile';
+	import Gallery from './Gallery';
+
 
 	class App extends Component {
 
@@ -98,9 +100,7 @@
 							<Profile 
 							artist={this.state.artist}
 							/>
-							<div className="Gallery">
-								Galllery
-							</div>
+							<Gallery tracks= {this.state.tracks} />
 						</div>
 
 					: <div></div>

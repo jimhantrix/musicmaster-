@@ -1,14 +1,16 @@
-import React from, { Component } from 'react';
+import React, { Component } from 'react';
 import './App.css'
 
-class Gallery extends Components {
+class Gallery extends Component {
 	
 	render() {
 
-		return {
+		console.log ('gallery props', this.props);
 
-			<div></div>
-		}
+		return (
+
+			<div> Gallery </div>
+		)
 	}
 }
 
