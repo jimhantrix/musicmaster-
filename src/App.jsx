@@ -39,7 +39,7 @@
 			.then(response => response.json())
 			.then(json => {
 
-				const artist = json.artists.items[0];
+				const artist =json.artists.items[0];
 				
 				this.setState({artist});
 
